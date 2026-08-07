@@ -85,3 +85,124 @@
 // =============================================================================
 
 
+const readlineSync = require("readline-sync");
+
+// Store student records
+let students = [];
+
+// Function to add a student
+function addStudent() {
+    const id = readlineSync.questionInt("Enter student ID: ");
+    const name = readlineSync.question("Enter student name: ");
+    const age = readlineSync.questionInt("Enter student age: ");
+    const grade = readlineSync.questionFloat("Enter student grade: ");
+
+    const student = {
+        id: id,
+        name: name,
+        age: age,
+        grade: grade
+    };
+
+    students.push(student);
+
+    console.log("Student added successfully.");
+}
+
+// Function to display all students
+function viewStudents() {
+    if (students.length === 0) {
+        console.log("No student records found.");
+        return;
+    }
+
+    console.log("\n===== STUDENT RECORDS =====");
+
+    for (let student of students) {
+        console.log(`ID: ${student.id}`);
+        console.log(`Name: ${student.name}`);
+        console.log(`Age: ${student.age}`);
+        console.log(`Grade: ${student.grade}`);
+        console.log("--------------------------");
+    }
+}
+
+// Function to search for a student
+function searchStudent() {
+    const id = readlineSync.questionInt("Enter student ID to search: ");
+
+    const student = students.find(function (student) {
+        return student.id === id;
+    });
+
+    if (student) {
+        console.log("\nStudent Found:");
+        console.log(`ID: ${student.id}`);
+        console.log(`Name: ${student.name}`);
+        console.log(`Age: ${student.age}`);
+        console.log(`Grade: ${student.grade}`);
+    } else {
+        console.log("Student not found.");
+    }
+}
+
+// Function to delete a student
+function deleteStudent() {
+    const id = readlineSync.questionInt("Enter student ID to delete: ");
+
+    const index = students.findIndex(function (student) {
+        return student.id === id;
+    });
+
+    if (index !== -1) {
+        students.splice(index, 1);
+        console.log("Student deleted successfully.");
+    } else {
+        console.log("Student not found.");
+    }
+}
+
+// Main function
+function main() {
+    let running = true;
+
+    while (running) {
+        console.log("\n===== STUDENT RECORD MANAGEMENT =====");
+        console.log("1. Add Student");
+        console.log("2. View All Students");
+        console.log("3. Search Student");
+        console.log("4. Delete Student");
+        console.log("5. Exit");
+
+        const choice = readlineSync.questionInt("Choose an option: ");
+
+        switch (choice) {
+            case 1:
+                addStudent();
+                break;
+
+            case 2:
+                viewStudents();
+                break;
+
+            case 3:
+                searchStudent();
+                break;
+
+            case 4:
+                deleteStudent();
+                break;
+
+            case 5:
+                console.log("Goodbye!");
+                running = false;
+                break;
+
+            default:
+                console.log("Invalid option. Please try again.");
+        }
+    }
+}
+
+// Start the program
+main();
