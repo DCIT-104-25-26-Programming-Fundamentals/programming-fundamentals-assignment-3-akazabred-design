@@ -82,3 +82,111 @@
 // =============================================================================
 
 
+const readlineSync = require("readline-sync");
+
+// Store all tasks
+let tasks = [];
+
+// Function to add a task
+function addTask() {
+    const task = readlineSync.question("Enter a task: ");
+
+    if (task.trim() === "") {
+        console.log("Task cannot be empty.");
+        return;
+    }
+
+    tasks.push(task);
+    console.log("Task added successfully.");
+}
+
+// Function to view all tasks
+function viewTasks() {
+    if (tasks.length === 0) {
+        console.log("Your to-do list is empty.");
+        return;
+    }
+
+    console.log("\nYour To-Do List:");
+
+    for (let i = 0; i < tasks.length; i++) {
+        console.log(`${i + 1}. ${tasks[i]}`);
+    }
+}
+
+// Function to remove a task
+function removeTask() {
+    if (tasks.length === 0) {
+        console.log("There are no tasks to remove.");
+        return;
+    }
+
+    viewTasks();
+
+    const taskNumber = readlineSync.questionInt(
+        "Enter the task number to remove: "
+    );
+
+    if (taskNumber < 1 || taskNumber > tasks.length) {
+        console.log("Invalid task number.");
+        return;
+    }
+
+    const removedTask = tasks.splice(taskNumber - 1, 1);
+    console.log(`Task "${removedTask[0]}" removed successfully.`);
+}
+
+// Function to clear all tasks
+function clearTasks() {
+    if (tasks.length === 0) {
+        console.log("There are no tasks to clear.");
+        return;
+    }
+
+    tasks = [];
+    console.log("All tasks have been cleared.");
+}
+
+// Main function
+function main() {
+    let running = true;
+
+    while (running) {
+        console.log("\n===== TO-DO LIST =====");
+        console.log("1. Add Task");
+        console.log("2. View Tasks");
+        console.log("3. Remove Task");
+        console.log("4. Clear All Tasks");
+        console.log("5. Exit");
+
+        const choice = readlineSync.questionInt("Choose an option: ");
+
+        switch (choice) {
+            case 1:
+                addTask();
+                break;
+
+            case 2:
+                viewTasks();
+                break;
+
+            case 3:
+                removeTask();
+                break;
+
+            case 4:
+                clearTasks();
+                break;
+
+            case 5:
+                console.log("Goodbye!");
+                running = false;
+                break;
+
+            default:
+                console.log("Invalid option. Please try again.");
+        }
+    }
+}
+
+main();

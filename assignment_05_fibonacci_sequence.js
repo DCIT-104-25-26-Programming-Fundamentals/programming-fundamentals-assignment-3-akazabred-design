@@ -55,3 +55,47 @@
 // =============================================================================
 
 
+const readlineSync = require("readline-sync");
+
+// Function to generate Fibonacci sequence
+function generateFibonacci(n) {
+    let sequence = [];
+
+    if (n >= 1) {
+        sequence.push(0);
+    }
+
+    if (n >= 2) {
+        sequence.push(1);
+    }
+
+    for (let i = 2; i < n; i++) {
+        sequence.push(sequence[i - 1] + sequence[i - 2]);
+    }
+
+    return sequence;
+}
+
+// Function to display the Fibonacci sequence
+function displayFibonacci(sequence) {
+    console.log(sequence.join(", "));
+}
+
+// Main function
+function main() {
+    const n = readlineSync.questionInt(
+        "How many Fibonacci numbers do you want to generate? "
+    );
+
+    if (n <= 0) {
+        console.log("Please enter a positive number.");
+        return;
+    }
+
+    const sequence = generateFibonacci(n);
+
+    console.log("Fibonacci sequence:");
+    displayFibonacci(sequence);
+}
+
+main();

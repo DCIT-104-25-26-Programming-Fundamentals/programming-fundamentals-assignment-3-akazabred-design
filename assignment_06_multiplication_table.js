@@ -60,3 +60,21 @@
 // =============================================================================
 
 
+const readlineSync = require("readline-sync");
+
+// Function to generate multiplication table
+function multiplicationTable(number) {
+    for (let i = 1; i <= 12; i++) {
+        console.log(`${number} x ${i} = ${number * i}`);
+    }
+}
+
+// Main function
+function main() {
+    const number = readlineSync.questionInt("Enter a number: ");
+
+    console.log(`\nMultiplication Table for ${number}:`);
+    multiplicationTable(number);
+}
+
+main();
