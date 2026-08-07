@@ -44,3 +44,61 @@
 // =============================================================================
 
 
+const readlineSync = require("readline-sync");
+
+// Function to calculate the sum
+function getSum(numbers) {
+    let sum = 0;
+    for (let num of numbers) {
+        sum += num;
+    }
+    return sum;
+}
+
+// Function to calculate the average
+function getAverage(numbers) {
+    return getSum(numbers) / numbers.length;
+}
+
+// Function to find the minimum value
+function getMin(numbers) {
+    let min = numbers[0];
+    for (let num of numbers) {
+        if (num < min) {
+            min = num;
+        }
+    }
+    return min;
+}
+
+// Function to find the maximum value
+function getMax(numbers) {
+    let max = numbers[0];
+    for (let num of numbers) {
+        if (num > max) {
+            max = num;
+        }
+    }
+    return max;
+}
+
+// Main function
+function main() {
+    const count = readlineSync.questionInt("How many numbers do you want to enter? ");
+
+    let numbers = [];
+
+    for (let i = 0; i < count; i++) {
+        numbers.push(readlineSync.questionFloat(`Enter number ${i + 1}: `));
+    }
+
+    console.log("\nResults:");
+    console.log("Numbers entered:", numbers.join(", "));
+    console.log("Sum:", getSum(numbers));
+    console.log("Average:", getAverage(numbers));
+    console.log("Minimum:", getMin(numbers));
+    console.log("Maximum:", getMax(numbers));
+}
+
+// Run the program
+main();
